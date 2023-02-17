@@ -36,8 +36,8 @@ export class Announcement {
   @Column()
   cover_image: string;
 
-  @Column()
-  images_list: string;
+  @Column("string", { array: true, default: [] })
+  images_list: string[];
 
   @Column({ default: false })
   is_sold: boolean;

@@ -24,7 +24,7 @@ export interface IAnnouncementRequest {
   description: string;
   vehicle_type: string;
   cover_image: string;
-  images_list: string;
+  images_list: string[];
 }
 
 export interface IAnnouncementUpdate {
@@ -36,5 +36,5 @@ export interface IAnnouncementUpdate {
   description?: string;
   vehicle_type?: string;
   cover_image?: string;
-  images_list?: string;
+  images_list?: string[];
 }

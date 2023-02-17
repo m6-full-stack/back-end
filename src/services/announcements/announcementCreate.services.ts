@@ -30,7 +30,7 @@ const announcementCreateService = async ({
     vehicle_type,
     cover_image,
     images_list,
-    advertiser: user
+    advertiser: user!
   });
 
   return newAnnouncement;
