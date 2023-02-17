@@ -37,7 +37,7 @@ export class Announcement {
   cover_image: string;
 
   @Column()
-  images_list: [];
+  images_list: string;
 
   @Column({ default: false })
   is_sold: boolean;

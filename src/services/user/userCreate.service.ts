@@ -15,7 +15,7 @@ const userCreateService = async ({
   birthdate,
   is_buyer,
   cpf,
-}: IUser) => {
+  }: IUser) => {
   const userRepository = AppDataSource.getRepository(User);
   const addressRepository = AppDataSource.getRepository(Address);
   const users = await userRepository.find();

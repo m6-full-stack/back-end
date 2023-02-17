@@ -1,5 +1,10 @@
 import "dotenv/config";
 import { DataSource } from "typeorm";
+import { Address } from "./entities/adress.entity";
+import { Announcement } from "./entities/announcement.entity";
+import { Bid } from "./entities/bid.entity"
+import { Transactions } from "./entities/transaction.entity"
+import { User } from "./entities/user.entity";
 
 const AppDataSource = new DataSource({
   "type": "postgres",
@@ -10,13 +15,7 @@ const AppDataSource = new DataSource({
   "database": process.env.DB,
   "synchronize": false,
   "logging": true,
-  "entities":
-    process.env.NODE_ENV === "production"
-      ? ["dist/entities/*.entity.js"]
-      : ["src/entities/*.entity.ts"],
-  "migrations":
-    process.env.NODE_ENV === "production"
-      ? ["dist/migrations/*.js"]
-      : ["src/migrations/*.ts"],
+  "entities": [ Address, Announcement, Bid, Transactions, User ],
+  "migrations": [  ],
 });
 export default AppDataSource;
