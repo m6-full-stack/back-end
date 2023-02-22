@@ -4,6 +4,7 @@ import "reflect-metadata";
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "./errors/appError";
 import { userRoutes } from "./routes/user/user.routes";
+import sessionRoutes from "./routes/session.routes";
 
 var cors = require("cors");
 
@@ -11,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/users", userRoutes);
+app.use("/login", sessionRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
