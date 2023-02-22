@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Address } from "./adress.entity";
 import { Announcement } from "./announcement.entity";
+import { Comment } from "./comments.entity";
 
 @Entity()
 export class User {
@@ -56,6 +57,9 @@ export class User {
   })
   @JoinColumn()
   announcements: Announcement[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   constructor() {
     if (!this.created_at) {
