@@ -3,7 +3,7 @@ import "express-async-errors";
 import "reflect-metadata";
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "./errors/appError";
-import { userRoutes } from "./routes/user.routes";
+import { userRoutes } from "./routes/user/user.routes";
 
 var cors = require("cors");
 
