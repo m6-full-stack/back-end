@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from "typeorm";
+import { Comment } from "./comments.entity";
 import { User } from "./user.entity";
 
 @Entity()
@@ -48,6 +50,9 @@ export class Announcement {
   @ManyToOne(() => User, { eager: true, onDelete: "CASCADE" })
   @JoinColumn()
   advertiser: User;
+
+  @OneToMany(() => Comment, (comment) => comment.announcement)
+  comments: Comment[]
 
   constructor() {
     if (!this.createdAt) {
