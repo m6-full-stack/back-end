@@ -1,7 +1,7 @@
-import AppDataSource from "../../M6/S5/back-end/src/data-source";
-import { AppError } from "../../M6/S5/back-end/src/errors/appError";
-import { IAnnouncementUpdate } from "../../M6/S5/back-end/src/interfaces/announcement";
-import { Announcement } from "../../M6/S5/back-end/src/entities/announcement.entity";
+import AppDataSource from "../../data-source";
+import { Announcement } from "../../entities/announcement.entity";
+import { AppError } from "../../errors/appError";
+import { IAnnouncementUpdate } from "../../interfaces/announcement";
 
 const announcementUpdateService = async ({
   type,
