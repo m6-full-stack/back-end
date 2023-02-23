@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import announcementUpdateService from "../../services/announcements/announcementUpdate.services";
 
-
 const announcementUpdateController = async (req: Request, res: Response) => {
-
   const { id } = req.params;
 
   const announcement = req.body;
