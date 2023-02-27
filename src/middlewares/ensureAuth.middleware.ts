@@ -25,6 +25,7 @@ export const ensureAuthMiddleware = async (
 
     req.user = {
       id: decoded.id,
+      
     };
 
     return next();

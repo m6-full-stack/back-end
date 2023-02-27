@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import announcementListService from "../../services/announcements/announcementList.services";
 
-const ammountListController = async (req: Request, res: Response) => {
-  const ammount = await announcementListService();
+const announcementListController = async (req: Request, res: Response) => {
 
-  return res.send(ammount);
+  const announcement = await announcementListService();
+
+  return res.send(announcement);
 };
 
-export default ammountListController;
+export default announcementListController;
