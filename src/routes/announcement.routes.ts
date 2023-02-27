@@ -4,10 +4,11 @@ import announcementDeleteController from "../controllers/announcements/announcem
 import announcementRetrieveListController from "../controllers/announcements/announcementRetrieveList.controller";
 import announcementListController from "../controllers/announcements/announcementRetrieveList.controller";
 import announcementUpdateController from "../controllers/announcements/announcementUpdate.controller";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 
 export const announcementRoutes = Router();
 
-announcementRoutes.post("", announcementCreateController);
+announcementRoutes.post("", ensureAuthMiddleware, announcementCreateController);
 
 announcementRoutes.get("", announcementListController);
 
