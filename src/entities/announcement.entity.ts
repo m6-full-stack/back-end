@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { Comment } from "./comments.entity";
+import { Image } from "./image.entity";
 import { User } from "./user.entity";
 
 @Entity()
@@ -38,14 +39,14 @@ export class Announcement {
   @Column()
   cover_image: string;
 
-  @Column("string", { array: true, default: [] })
-  images_list: string[];
-
   @Column({ default: false })
   is_sold: boolean;
-
+  
   @Column("date")
   createdAt: string;
+  
+  @OneToMany(() => Image, (image) => image.announcement, { eager: true })
+  images_list: Image[];
 
   @ManyToOne(() => User, { eager: true, onDelete: "CASCADE" })
   @JoinColumn()

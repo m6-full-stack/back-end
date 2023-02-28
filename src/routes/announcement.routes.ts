@@ -1,10 +1,11 @@
 import { Router } from "express";
 import announcementCreateController from "../controllers/announcements/announcementCreate.controller";
 import announcementDeleteController from "../controllers/announcements/announcementDelete.controller";
-import announcementRetrieveListController from "../controllers/announcements/announcementRetrieveList.controller";
-import announcementListController from "../controllers/announcements/announcementRetrieveList.controller";
+import announcementListController from "../controllers/announcements/announcementList.controller";
+import announcementRetrieveController from "../controllers/announcements/announcementRetrieve.controller";
 import announcementUpdateController from "../controllers/announcements/announcementUpdate.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureIdVerifyMiddleware } from "../middlewares/ensureIdVerify.middleware";
 
 export const announcementRoutes = Router();
 
@@ -12,8 +13,8 @@ announcementRoutes.post("", ensureAuthMiddleware, announcementCreateController);
 
 announcementRoutes.get("", announcementListController);
 
-announcementRoutes.get("/:id", announcementRetrieveListController);
+announcementRoutes.get("/:id", ensureAuthMiddleware, ensureIdVerifyMiddleware, announcementRetrieveController);
 
-announcementRoutes.delete("/:id", announcementDeleteController);
+announcementRoutes.delete("/:id", ensureAuthMiddleware, ensureIdVerifyMiddleware, announcementDeleteController);
 
-announcementRoutes.patch("/:id", announcementUpdateController);
+announcementRoutes.patch("/:id", ensureAuthMiddleware, ensureIdVerifyMiddleware, announcementUpdateController);
