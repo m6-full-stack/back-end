@@ -48,12 +48,26 @@ const userCreateService = async ({
       el.number === address.number
   )
 
-  if (addressAlreadyExists) {
-    throw new AppError(400, 'Address already exists!')
-  }
+  if (!addressAlreadyExists) {
+    const newAddress = addressRepository.create(address)
+    await addressRepository.save(newAddress)
 
-  const newAddress = addressRepository.create(address)
-  await addressRepository.save(newAddress)
+    const hashedPassword = await hash(password, 10)
+    const newUser = userRepository.create({
+      name: name,
+      email: email,
+      phone: phone,
+      password: hashedPassword,
+      description: description,
+      is_buyer: is_buyer,
+      address: newAddress,
+      birthdate: birthdate,
+      cpf: cpf,
+    })
+    await userRepository.save(newUser)
+
+    return newUser
+  }
 
   const hashedPassword = await hash(password, 10)
   const newUser = userRepository.create({
@@ -63,7 +77,7 @@ const userCreateService = async ({
     password: hashedPassword,
     description: description,
     is_buyer: is_buyer,
-    address: newAddress,
+    address: addressAlreadyExists,
     birthdate: birthdate,
     cpf: cpf,
   })
@@ -72,3 +86,4 @@ const userCreateService = async ({
   return newUser
 }
 export default userCreateService
+// git commit -m 'fix: functional routes create and session user'

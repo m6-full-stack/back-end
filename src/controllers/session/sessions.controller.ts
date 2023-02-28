@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
-import userLoginService from "../../services/session/sessions.service";
+import { Request, Response } from 'express'
+import userLoginService from '../../services/session/sessions.service'
 
 const userLoginController = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const token = await userLoginService({ email, password });
+  const { email, password } = req.body
+  const token = await userLoginService({ email, password })
 
-  return res.json({ token }).status(200);
-};
+  return res.status(200).json(token)
+}
 
-export default userLoginController;
+export default userLoginController
