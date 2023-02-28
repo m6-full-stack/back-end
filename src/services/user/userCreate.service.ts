@@ -1,9 +1,9 @@
-import { IUser } from "../../interfaces/users/index";
-import { Address } from "../../entities/adress.entity";
-import { User } from "../../entities/user.entity";
-import AppDataSource from "../../data-source";
-import { hash } from "bcryptjs";
-import { AppError } from "../../errors/appError";
+import { IUser } from '../../interfaces/users/index'
+import { Address } from '../../entities/adress.entity'
+import { User } from '../../entities/user.entity'
+import AppDataSource from '../../data-source'
+import { hash } from 'bcryptjs'
+import { AppError } from '../../errors/appError'
 
 const userCreateService = async ({
   name,
@@ -15,31 +15,30 @@ const userCreateService = async ({
   birthdate,
   is_buyer,
   cpf,
-  }: IUser) => {
+}: IUser) => {
+  const user = {
+    name,
+    password,
+    email,
+    phone,
+    description,
+    address,
+    birthdate,
+    is_buyer,
+    cpf,
+  }
 
-    const user = {
-      name,
-      password,
-      email,
-      phone,
-      description,
-      address,
-      birthdate,
-      is_buyer,
-      cpf,
-      }
+  console.log(user)
+  const userRepository = AppDataSource.getRepository(User)
+  const addressRepository = AppDataSource.getRepository(Address)
+  const users = await userRepository.find()
 
-    console.log(user)
-  const userRepository = AppDataSource.getRepository(User);
-  const addressRepository = AppDataSource.getRepository(Address);
-  const users = await userRepository.find();
+  const addresses = await addressRepository.find()
 
-  const addresses = await addressRepository.find();
-
-  const emailAlreadyExists = users.find((user) => user.email === email);
+  const emailAlreadyExists = users.find((user) => user.email === email)
 
   if (emailAlreadyExists) {
-    throw new AppError(400, "Email already exists!");
+    throw new AppError(400, 'Email already exists!')
   }
 
   const addressAlreadyExists = addresses.find(
@@ -47,16 +46,16 @@ const userCreateService = async ({
       el.city === address.city &&
       el.street === address.street &&
       el.number === address.number
-  );
+  )
 
   if (addressAlreadyExists) {
-    throw new AppError(400, "Address already exists!");
+    throw new AppError(400, 'Address already exists!')
   }
 
-  const newAddress = addressRepository.create(address);
-  await addressRepository.save(newAddress);
+  const newAddress = addressRepository.create(address)
+  await addressRepository.save(newAddress)
 
-  const hashedPassword = await hash(password, 10);
+  const hashedPassword = await hash(password, 10)
   const newUser = userRepository.create({
     name: name,
     email: email,
@@ -67,9 +66,9 @@ const userCreateService = async ({
     address: newAddress,
     birthdate: birthdate,
     cpf: cpf,
-  });
-  await userRepository.save(newUser);
+  })
+  await userRepository.save(newUser)
 
-  return newUser;
-};
-export default userCreateService;
+  return newUser
+}
+export default userCreateService

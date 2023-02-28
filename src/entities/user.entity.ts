@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer'
 import {
   Entity,
   Column,
@@ -5,68 +6,69 @@ import {
   OneToMany,
   JoinColumn,
   OneToOne,
-} from "typeorm";
-import { Address } from "./adress.entity";
-import { Announcement } from "./announcement.entity";
-import { Comment } from "./comments.entity";
+} from 'typeorm'
+import { Address } from './adress.entity'
+import { Announcement } from './announcement.entity'
+import { Comment } from './comments.entity'
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  readonly id: string;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string
+
+  @Column({ length: 50 })
+  name: string
+
+  @Column({ length: 50 })
+  email: string
 
   @Column()
-  name: string;
+  @Exclude()
+  password: string
 
   @Column()
-  email: string;
+  phone: string
 
   @Column()
-  password: string;
+  cpf: string
 
-  @Column()
-  phone: string;
+  @Column('date', { nullable: true })
+  birthdate: string
 
-  @Column()
-  cpf: string;
+  @Column({ nullable: true })
+  description: string
 
-  @Column("date")
-  birthdate: string;
+  @Column({ nullable: true, default: false })
+  is_buyer: boolean
 
-  @Column()
-  description: string;
+  @Column('date')
+  created_at: string
 
-  @Column()
-  is_buyer: boolean;
-
-  @Column("date")
-  created_at: string;
-
-  @Column("date")
-  updated_at: string;
+  @Column('date')
+  updated_at: string
 
   @OneToOne(() => Address, {
     eager: true,
-    onDelete: "CASCADE",
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
-  address: Address;
+  address: Address
 
   @OneToMany(() => Announcement, (announcement) => announcement.advertiser, {
-    onDelete: "CASCADE",
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
-  announcements: Announcement[];
+  announcements: Announcement[]
 
   @OneToMany(() => Comment, (comment) => comment.user)
-  comments: Comment[];
+  comments: Comment[]
 
   constructor() {
     if (!this.created_at) {
-      this.created_at = new Date().toLocaleDateString();
+      this.created_at = new Date().toLocaleDateString()
     }
     if (!this.updated_at) {
-      this.updated_at = new Date().toLocaleDateString();
+      this.updated_at = new Date().toLocaleDateString()
     }
   }
 }
