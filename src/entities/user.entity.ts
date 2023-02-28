@@ -1,3 +1,4 @@
+import { ManyToOne } from 'typeorm'
 import { Exclude } from 'class-transformer'
 import {
   Entity,
@@ -22,8 +23,8 @@ export class User {
   @Column({ length: 50 })
   email: string
 
-  @Column()
   @Exclude()
+  @Column()
   password: string
 
   @Column()
@@ -47,7 +48,7 @@ export class User {
   @Column('date')
   updated_at: string
 
-  @OneToOne(() => Address, {
+  @ManyToOne(() => Address, {
     eager: true,
     onDelete: 'CASCADE',
   })
