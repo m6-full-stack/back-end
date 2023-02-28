@@ -49,7 +49,7 @@ const userCreateService = async ({
   )
 
   if (addressAlreadyExists) {
-    throw new AppError(400, 'Address already exists!')
+    throw new AppError(400, '1 Address already exists!')
   }
 
   const newAddress = addressRepository.create(address)
