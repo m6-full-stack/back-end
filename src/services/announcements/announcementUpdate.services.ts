@@ -34,7 +34,6 @@ const announcementUpdateService = async ({
     description: description ? description : announcement.description,
     vehicle_type: vehicle_type ? vehicle_type : announcement.vehicle_type,
     cover_image: cover_image ? cover_image : announcement.cover_image,
-    images_list: images_list ? images_list : announcement.images_list,
   });
 
   const annnoucementUpdated = await annoucementRepository.findOneBy({

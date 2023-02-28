@@ -26,8 +26,8 @@ const AppDataSource = new DataSource(
         database: process.env.POSTGRES_DB,
         logging: true,
         synchronize: false,
-        entities: [User, Address, Announcement, Comment, Transactions, Image],
-        migrations: [createTables1677589340389],
+        entities: ["src/entities/*.ts"],
+        migrations: ["src/migrations/*.ts"],
       }
 );
 
