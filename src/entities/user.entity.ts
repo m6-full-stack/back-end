@@ -40,7 +40,7 @@ export class User {
   description: string
 
   @Column({ nullable: true, default: false })
-  is_buyer: boolean
+  is_seller: boolean
 
   @Column('date')
   created_at: string
