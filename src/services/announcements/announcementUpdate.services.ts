@@ -1,30 +1,32 @@
-import AppDataSource from "../../data-source";
-import { Announcement } from "../../entities/announcement.entity";
-import { AppError } from "../../errors/appError";
-import { IAnnouncementUpdate } from "../../interfaces/announcement";
+import AppDataSource from '../../data-source'
+import { Announcement } from '../../entities/announcement.entity'
+import { AppError } from '../../errors/appError'
+import { IAnnouncementUpdate } from '../../interfaces/announcement'
 
-const announcementUpdateService = async ({
-  type,
-  title,
-  year,
-  mileage,
-  price,
-  description,
-  vehicle_type,
-  cover_image,
-  images_list,
-}: IAnnouncementUpdate, id: string,): Promise<Announcement> => {
-
-  const annoucementRepository = AppDataSource.getRepository(Announcement);
+const announcementUpdateService = async (
+  {
+    type,
+    title,
+    year,
+    mileage,
+    price,
+    description,
+    vehicle_type,
+    cover_image,
+    images_list,
+  }: IAnnouncementUpdate,
+  id: string
+): Promise<Announcement> => {
+  const annoucementRepository = AppDataSource.getRepository(Announcement)
 
   const announcement = await annoucementRepository.findOneBy({
     id,
-  });
+  })
 
   if (!announcement) {
-    throw new AppError(404, "This announcement don't exists!");
+    throw new AppError(404, "This announcement don't exists!")
   }
-
+  console.log(announcement)
   await annoucementRepository.update(id, {
     type: type ? type : announcement.type,
     title: title ? title : announcement.title,
@@ -34,13 +36,13 @@ const announcementUpdateService = async ({
     description: description ? description : announcement.description,
     vehicle_type: vehicle_type ? vehicle_type : announcement.vehicle_type,
     cover_image: cover_image ? cover_image : announcement.cover_image,
-  });
+  })
 
   const annnoucementUpdated = await annoucementRepository.findOneBy({
-    id,
-  });
+    id: announcement.id,
+  })
 
-  return annnoucementUpdated!;
-};
+  return annnoucementUpdated
+}
 
-export default announcementUpdateService;
+export default announcementUpdateService

@@ -51,9 +51,14 @@ export class Announcement {
   })
   images_list: Image[]
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn()
+  @ManyToOne(() => User, (user) => user.announcements, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({})
   advertiser: User
+
+  @Column()
+  advertiserId: string
 
   @OneToMany(() => Comment, (comment) => comment.announcement, {
     eager: true,

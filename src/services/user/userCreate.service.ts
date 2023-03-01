@@ -56,9 +56,9 @@ const userCreateService = async ({
 
     return newUser
   }
+  user.address = addressAlreadyExists
   const newUser = userRepository.create(user)
   await userRepository.save(newUser)
-
   return newUser
 }
 export default userCreateService
