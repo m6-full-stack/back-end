@@ -56,13 +56,13 @@ export class User {
   address: Address
 
   @OneToMany(() => Announcement, (announcement) => announcement.advertiser, {
-    onDelete: 'CASCADE', eager: true
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   announcements: Announcement[]
 
   @OneToMany(() => Comment, (comment) => comment.user)
-  comments: Comment[] 
+  comments: Comment[]
 
   constructor() {
     if (!this.created_at) {

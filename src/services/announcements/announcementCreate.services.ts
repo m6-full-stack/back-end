@@ -1,36 +1,37 @@
-import AppDataSource from "../../data-source";
-import { Announcement } from "../../entities/announcement.entity";
-import { IAnnouncementRequest } from "../../interfaces/announcement";
-import { User } from "../../entities/user.entity";
-import { Image } from "../../entities/image.entity";
-import imagesListCreateService from "../images/imagesCreate.services";
-import imagesCreateService from "../images/imagesCreate.services";
-import { AppError } from "../../errors/appError";
+import AppDataSource from '../../data-source'
+import { Announcement } from '../../entities/announcement.entity'
+import { IAnnouncementRequest } from '../../interfaces/announcement'
+import { User } from '../../entities/user.entity'
+import { Image } from '../../entities/image.entity'
+import imagesCreateService from '../images/imagesCreate.services'
+import { AppError } from '../../errors/appError'
 
-const announcementCreateService = async ({   
-  type,
-  title,
-  year,
-  mileage,
-  price,
-  description,
-  vehicle_type,
-  cover_image,
-  images_list}: IAnnouncementRequest, id: string): Promise<Announcement>  => {
+const announcementCreateService = async (
+  {
+    type,
+    title,
+    year,
+    mileage,
+    price,
+    description,
+    vehicle_type,
+    cover_image,
+    images_list,
+  }: IAnnouncementRequest,
+  id: string
+): Promise<Announcement> => {
+  const announcementRepository = AppDataSource.getRepository(Announcement)
 
-  const announcementRepository = AppDataSource.getRepository(Announcement);
+  const userRepository = AppDataSource.getRepository(User)
 
-  const userRepository = AppDataSource.getRepository(User);
-
-  
   const imagesRepository = AppDataSource.getRepository(Image)
-  
-  const user = await userRepository.findOneBy({ id });
-  
+
+  const user = await userRepository.findOneBy({ id })
+
   if (!user.is_buyer === true) {
-    throw new AppError(404, "This user cannot advertise!");
+    throw new AppError(404, 'This user cannot advertise!')
   }
-  
+
   const newAnnouncement = announcementRepository.create({
     type,
     title,
@@ -40,21 +41,25 @@ const announcementCreateService = async ({
     description,
     vehicle_type,
     cover_image,
-    advertiser: user!
-  });
+    advertiser: user!,
+  })
 
   await announcementRepository.save(newAnnouncement)
-  
-  await imagesCreateService(images_list, newAnnouncement)
 
-  const announcementCreated = announcementRepository.findOne({
-    where: {
-      id: newAnnouncement.id
-    }, 
-    relations: {
-      images_list: true
-    }});
+  if (images_list) {
+    const listImages = await imagesCreateService(images_list, newAnnouncement)
 
-  return announcementCreated;
-};
-export default announcementCreateService;
+    if (!listImages) {
+      throw new AppError(409, 'Images not created')
+    }
+    const announcementCreated = await announcementRepository.findOne({
+      where: {
+        id: newAnnouncement.id,
+      },
+    })
+
+    return announcementCreated
+  }
+  throw new AppError(406, 'Requested images not found')
+}
+export default announcementCreateService

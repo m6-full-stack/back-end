@@ -1,13 +1,20 @@
-import { Request, Response } from "express";
-import announcementCreateService from "../../services/announcements/announcementCreate.services";
+import { Request, Response } from 'express'
+import { AppError, handleError } from '../../errors/appError'
+import announcementCreateService from '../../services/announcements/announcementCreate.services'
 
 const announcementCreateController = async (req: Request, res: Response) => {
-  const announcement = req.body;
+  try {
+    const announcement = req.body
 
-  const id = req.user.id;
+    const id = req.user.id
 
-  const newAnnouncement = await announcementCreateService(announcement, id);
-  return res.status(201).send(newAnnouncement);
-};
+    const newAnnouncement = await announcementCreateService(announcement, id)
+    return res.status(201).send(newAnnouncement)
+  } catch (error) {
+    if (error instanceof AppError) {
+      handleError(error, res)
+    }
+  }
+}
 
-export default announcementCreateController;
+export default announcementCreateController
