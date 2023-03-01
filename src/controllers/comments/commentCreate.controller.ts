@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import commentCreateService from "../../services/comment/commentCreate.service";
+import { instanceToPlain } from 'class-transformer'
 
 const commentCreateController = async (req: Request, res: Response) => {
   const comment = req.body.content;
@@ -12,7 +13,7 @@ const commentCreateController = async (req: Request, res: Response) => {
     idUser
   );
 
-  res.json(createdComment).status(201);
+  res.json(instanceToPlain(createdComment)).status(201);
 };
 
 export default commentCreateController;
