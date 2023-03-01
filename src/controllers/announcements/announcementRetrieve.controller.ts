@@ -3,7 +3,7 @@ import announcementRetrieveListService from "../../services/announcements/announ
 
 const announcementRetrieveController = async (req: Request, res: Response) => {
 
-  const { id } = req.user;
+  const { id } = req.params;
 
   const announcement = await announcementRetrieveListService(id);
 
