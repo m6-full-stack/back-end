@@ -5,6 +5,7 @@ import { User } from "../../entities/user.entity";
 import { Image } from "../../entities/image.entity";
 import imagesListCreateService from "../images/imagesCreate.services";
 import imagesCreateService from "../images/imagesCreate.services";
+import { AppError } from "../../errors/appError";
 
 const announcementCreateService = async ({   
   type,
@@ -21,10 +22,14 @@ const announcementCreateService = async ({
 
   const userRepository = AppDataSource.getRepository(User);
 
+  
   const imagesRepository = AppDataSource.getRepository(Image)
-
+  
   const user = await userRepository.findOneBy({ id });
-
+  
+  if (!user.is_buyer === true) {
+    throw new AppError(404, "This user cannot advertise!");
+  }
   
   const newAnnouncement = announcementRepository.create({
     type,
