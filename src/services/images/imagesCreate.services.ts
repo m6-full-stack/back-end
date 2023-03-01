@@ -1,5 +1,5 @@
-import { Announcement } from "../../entities/announcement.entity";
 import AppDataSource from "../../data-source";
+import { Announcement } from "../../entities/announcement.entity";
 import { Image } from "../../entities/image.entity";
 
 const imagesListCreateService = async (images_list: string[], announcement: Announcement) => {
