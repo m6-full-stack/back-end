@@ -5,59 +5,65 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-} from "typeorm";
-import { Comment } from "./comments.entity";
-import { Image } from "./image.entity";
-import { User } from "./user.entity";
+} from 'typeorm'
+import { Comment } from './comments.entity'
+import { Image } from './image.entity'
+import { User } from './user.entity'
 
 @Entity()
 export class Announcement {
-  @PrimaryGeneratedColumn("uuid")
-  readonly id: string;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string
 
   @Column()
-  type: string;
+  type: string
 
   @Column()
-  title: string;
+  title: string
 
   @Column()
-  year: string;
+  year: string
 
   @Column()
-  mileage: string;
+  mileage: string
 
   @Column()
-  price: string;
+  price: string
 
   @Column()
-  description: string;
+  description: string
 
   @Column()
-  vehicle_type: string;
+  vehicle_type: string
 
   @Column()
-  cover_image: string;
+  cover_image: string
 
   @Column({ default: false })
-  is_sold: boolean;
-  
-  @Column("date")
-  createdAt: string;
-  
-  @OneToMany(() => Image, (image) => image.announcement, { eager: true })
-  images_list: Image[];
+  is_sold: boolean
 
-  @ManyToOne(() => User, { onDelete: "CASCADE" })
+  @Column('date')
+  createdAt: string
+
+  @OneToMany(() => Image, (image) => image.announcement, {
+    eager: true,
+    nullable: true,
+  })
+  images_list: Image[]
+
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
-  advertiser: User;
+  advertiser: User
 
-  @OneToMany(() => Comment, (comment) => comment.announcement, { eager: true })
+  @OneToMany(() => Comment, (comment) => comment.announcement, {
+    eager: true,
+    nullable: true,
+  })
   comments: Comment[]
 
   constructor() {
     if (!this.createdAt) {
-      this.createdAt = new Date().toLocaleDateString();
+      this.createdAt = new Date().toLocaleDateString()
     }
   }
 }

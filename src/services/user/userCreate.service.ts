@@ -13,7 +13,7 @@ const userCreateService = async ({
   description,
   address,
   birthdate,
-  is_buyer,
+  is_seller,
   cpf,
 }: IUser) => {
   const userRepository = AppDataSource.getRepository(User)
@@ -41,16 +41,16 @@ const userCreateService = async ({
     email,
     phone,
     description,
-    address,
     birthdate,
-    is_buyer,
+    is_seller,
+    address,
     cpf,
   }
 
   if (!addressAlreadyExists) {
     const newAddress = addressRepository.create(address)
     await addressRepository.save(newAddress)
-
+    user.address = newAddress
     const newUser = userRepository.create(user)
     await userRepository.save(newUser)
 
