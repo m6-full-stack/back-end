@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import AppDataSource from "../data-source";
+import { Announcement } from "../entities/announcement.entity";
 import { User } from "../entities/user.entity";
 import { AppError } from "../errors/appError";
 
@@ -8,20 +9,20 @@ export const ensureIdVerifyMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const id = req.params.id
+  const { id } = req.params
 
   if (!id) {
     throw new AppError(404, "Id is required");
   }
 
-  const contactsRepository =
-    AppDataSource.getRepository(User);
+  const announcementRepository =
+    AppDataSource.getRepository(Announcement);
 
 
-  const contact = await contactsRepository.findOneBy({id});
+  const announcement = await announcementRepository.findOneBy({id});
 
-  if (!contact) {
-    throw new AppError(404, "This user dont exist");
+  if (!announcement) {
+    throw new AppError(404, "This announcement dont exist");
   }
 
   return next();

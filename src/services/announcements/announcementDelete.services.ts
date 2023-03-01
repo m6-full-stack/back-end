@@ -9,9 +9,11 @@ const announcementDeleteService = async (id: string) => {
   const announcement = await announcementRepository.findOneBy({ id });
 
   if (!announcement) {
-    throw new AppError(404, "User not found");
+    throw new AppError(404, "Announcement not found");
   }
-  announcementRepository.delete({ id });
-  return;
+
+  announcementRepository.delete(announcement);
+
+  return "Announcement deleted"
 };
 export default announcementDeleteService;

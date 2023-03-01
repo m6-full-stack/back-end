@@ -52,7 +52,7 @@ export class Announcement {
   @JoinColumn()
   advertiser: User;
 
-  @OneToMany(() => Comment, (comment) => comment.announcement)
+  @OneToMany(() => Comment, (comment) => comment.announcement, { eager: true })
   comments: Comment[]
 
   constructor() {
