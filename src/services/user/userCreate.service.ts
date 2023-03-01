@@ -86,4 +86,3 @@ const userCreateService = async ({
   return newUser
 }
 export default userCreateService
-// git commit -m 'fix: functional routes create and session user'

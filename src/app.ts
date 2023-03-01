@@ -7,13 +7,16 @@ import handleErrorMiddleware from './middlewares/handleError.middleware'
 import cors from 'cors'
 import { announcementRoutes } from './routes/announcement.routes'
 import commentRoutes from './routes/comment.routes'
+import { profileRoutes } from './routes/profile.Routes'
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use('/users', userRoutes)
 app.use('/login', sessionRoutes)
-app.use('/annoucement', announcementRoutes)
+app.use("/profile", profileRoutes)
+app.use('/images', announcementRoutes)
+app.use('/announcement', announcementRoutes)
 app.use('/comment', commentRoutes)
 
 app.use(handleErrorMiddleware)

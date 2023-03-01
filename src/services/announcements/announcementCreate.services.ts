@@ -3,7 +3,7 @@ import { Announcement } from "../../entities/announcement.entity";
 import { IAnnouncementRequest } from "../../interfaces/announcement";
 import { User } from "../../entities/user.entity";
 import { Image } from "../../entities/image.entity";
-import imagesListCreateService from "./imagesCreate.services";
+import imagesListCreateService from "../images/imagesCreate.services";
 
 const announcementCreateService = async ({   
   type,
