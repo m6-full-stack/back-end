@@ -12,7 +12,7 @@ const userCreateController = async (req: Request, res: Response) => {
       description,
       address,
       birthdate,
-      is_buyer,
+      is_seller,
       cpf,
     } = req.body
 
@@ -24,7 +24,7 @@ const userCreateController = async (req: Request, res: Response) => {
       description,
       address,
       birthdate,
-      is_buyer,
+      is_seller,
       cpf,
     })
     return res.status(201).json(instanceToPlain(newUser))

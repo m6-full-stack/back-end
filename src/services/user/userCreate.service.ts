@@ -27,7 +27,6 @@ const userCreateService = async ({
     is_buyer,
     cpf,
   }
-
   const userRepository = AppDataSource.getRepository(User)
   const addressRepository = AppDataSource.getRepository(Address)
   const users = await userRepository.find()
@@ -46,40 +45,29 @@ const userCreateService = async ({
       el.street === address.street &&
       el.number === address.number
   )
+  const hashedPassword = await hash(password, 10)
+  const user = {
+    name,
+    password: hashedPassword,
+    email,
+    phone,
+    description,
+    address,
+    birthdate,
+    is_buyer,
+    cpf,
+  }
 
   if (!addressAlreadyExists) {
     const newAddress = addressRepository.create(address)
     await addressRepository.save(newAddress)
 
-    const hashedPassword = await hash(password, 10)
-    const newUser = userRepository.create({
-      name: name,
-      email: email,
-      phone: phone,
-      password: hashedPassword,
-      description: description,
-      is_buyer: is_buyer,
-      address: newAddress,
-      birthdate: birthdate,
-      cpf: cpf,
-    })
+    const newUser = userRepository.create(user)
     await userRepository.save(newUser)
 
     return newUser
   }
-
-  const hashedPassword = await hash(password, 10)
-  const newUser = userRepository.create({
-    name: name,
-    email: email,
-    phone: phone,
-    password: hashedPassword,
-    description: description,
-    is_buyer: is_buyer,
-    address: addressAlreadyExists,
-    birthdate: birthdate,
-    cpf: cpf,
-  })
+  const newUser = userRepository.create(user)
   await userRepository.save(newUser)
 
   return newUser
