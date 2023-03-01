@@ -5,7 +5,7 @@ declare global {
     interface Request {
       user: {
         id: string;
-        is_buyer: string;
+        is_seller: string;
       };
     }
   }
