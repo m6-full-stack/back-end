@@ -48,11 +48,11 @@ export class Announcement {
   @OneToMany(() => Image, (image) => image.announcement, { eager: true })
   images_list: Image[];
 
-  @ManyToOne(() => User, { eager: true, onDelete: "CASCADE" })
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn()
   advertiser: User;
 
-  @OneToMany(() => Comment, (comment) => comment.announcement)
+  @OneToMany(() => Comment, (comment) => comment.announcement, { eager: true })
   comments: Comment[]
 
   constructor() {
