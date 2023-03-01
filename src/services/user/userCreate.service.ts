@@ -28,7 +28,6 @@ const userCreateService = async ({
     cpf,
   }
 
-  console.log(user)
   const userRepository = AppDataSource.getRepository(User)
   const addressRepository = AppDataSource.getRepository(Address)
   const users = await userRepository.find()
