@@ -4,6 +4,7 @@ import { IAnnouncementRequest } from "../../interfaces/announcement";
 import { User } from "../../entities/user.entity";
 import { Image } from "../../entities/image.entity";
 import imagesListCreateService from "../images/imagesCreate.services";
+import imagesCreateService from "../images/imagesCreate.services";
 
 const announcementCreateService = async ({   
   type,
@@ -39,7 +40,7 @@ const announcementCreateService = async ({
 
   await announcementRepository.save(newAnnouncement)
   
-  await imagesListCreateService(images_list, newAnnouncement)
+  await imagesCreateService(images_list, newAnnouncement)
 
   const announcementCreated = announcementRepository.findOne({
     where: {

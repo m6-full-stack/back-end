@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
 import { Image } from "../../entities/image.entity";
 
-const imagesListCreateService = async (images_list: string[], announcement: Announcement) => {
+const imagesCreateService = async (images_list: string[], announcement: Announcement) => {
 
   const imagesRepository = AppDataSource.getRepository(Image)
 
@@ -16,4 +16,4 @@ const imagesListCreateService = async (images_list: string[], announcement: Anno
     });
 
 };
-export default imagesListCreateService;
+export default imagesCreateService;
