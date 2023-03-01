@@ -28,7 +28,7 @@ const announcementCreateService = async (
 
   const user = await userRepository.findOneBy({ id })
 
-  if (!user.is_buyer === true) {
+  if (!user.is_seller === true) {
     throw new AppError(404, 'This user cannot advertise!')
   }
 
