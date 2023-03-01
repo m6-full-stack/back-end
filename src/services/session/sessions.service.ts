@@ -23,8 +23,6 @@ const userLoginService = async ({ email, password }: ILogin) => {
     expiresIn: '24h',
   })
 
-  console.log("2", token)
-
   return token
 }
 
