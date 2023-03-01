@@ -19,7 +19,7 @@ const userLoginService = async ({ email, password }: ILogin) => {
     throw new AppError(403, 'Invalid email or password')
   }
 
-  const token = jwt.sign({ id: user.id, is_buyer: user.is_buyer }, process.env.SECRET_KEY as string, {
+  const token = jwt.sign({ id: user.id, is_buyer: user.is_seller }, process.env.SECRET_KEY as string, {
     expiresIn: '24h',
   })
 
