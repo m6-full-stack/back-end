@@ -3,16 +3,20 @@ import addressUpdateController from "../controllers/address/addressUpdate.contro
 import userCreateController from "../controllers/users/userCreate.controller";
 import userDeleteController from "../controllers/users/userDelete.controller";
 import userListController from "../controllers/users/userList.controller";
+import userRetrieveController from "../controllers/users/userRetrieve.controller";
 import userUpdateController from "../controllers/users/userUpdate.controller";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 
 export const userRoutes = Router();
 
 userRoutes.post("", userCreateController);
 
-userRoutes.get("", userListController);
+userRoutes.get("", ensureAuthMiddleware, userListController);
 
-userRoutes.delete("/:id", userDeleteController);
+userRoutes.get("/:id", userRetrieveController);
 
-userRoutes.patch("/:id", userUpdateController);
+userRoutes.delete("", ensureAuthMiddleware, userDeleteController);
 
-userRoutes.patch("/address/:id", addressUpdateController);
+userRoutes.patch("", ensureAuthMiddleware, userUpdateController);
+
+userRoutes.patch("/address", ensureAuthMiddleware, addressUpdateController);
