@@ -5,7 +5,7 @@ import imageDeleteController from "../controllers/images/imagesDelete.controller
 
 const imageRoutes = Router();
 
-imageRoutes.post("/:id", ensureAuthMiddleware, imageCreateController);
-imageRoutes.delete("/:id", ensureAuthMiddleware, imageDeleteController);
+imageRoutes.post("", ensureAuthMiddleware, imageCreateController);
+imageRoutes.post("", ensureAuthMiddleware, imageDeleteController);
 
 export default imageRoutes;
