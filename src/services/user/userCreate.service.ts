@@ -28,6 +28,12 @@ const userCreateService = async ({
     throw new AppError(400, 'Email already exists!')
   }
 
+  const cpfAlreadyExists = users.find((user) => user.cpf === cpf)
+
+  if (cpfAlreadyExists) {
+    throw new AppError(400, 'CPF already exists!')
+  }
+
   const addressAlreadyExists = addresses.find(
     (el) =>
       el.city === address.city &&

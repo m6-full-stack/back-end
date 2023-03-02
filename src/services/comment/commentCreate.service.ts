@@ -51,7 +51,7 @@ const commentCreateService = async (
     },
   });
 
-  return newComment;
+  return newComment[0];
 };
 
 export default commentCreateService;
