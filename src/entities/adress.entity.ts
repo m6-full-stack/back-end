@@ -4,29 +4,33 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   OneToOne,
-} from "typeorm";
-import { User } from "./user.entity";
+  OneToMany,
+} from 'typeorm'
+import { User } from './user.entity'
 
 @Entity()
 export class Address {
-  @PrimaryGeneratedColumn("uuid")
-  readonly id: string;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string
 
   @Column()
-  cep: string;
+  cep: string
 
   @Column()
-  state: string;
+  state: string
 
   @Column()
-  city: string;
+  city: string
 
   @Column()
-  street: string;
+  street: string
 
   @Column()
-  number: string;
+  number: string
 
   @Column({ nullable: true })
-  complement: string;
+  complement: string
+
+  @OneToMany(() => User, (user) => user.address)
+  user: User
 }

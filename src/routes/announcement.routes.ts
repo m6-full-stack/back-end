@@ -1,18 +1,34 @@
-import { Router } from "express";
-import announcementCreateController from "../controllers/announcements/announcementCreate.controller";
-import announcementDeleteController from "../controllers/announcements/announcementDelete.controller";
-import announcementRetrieveListController from "../controllers/announcements/announcementRetrieveList.controller";
-import announcementListController from "../controllers/announcements/announcementRetrieveList.controller";
-import announcementUpdateController from "../controllers/announcements/announcementUpdate.controller";
+import { Router } from 'express'
+import announcementCreateController from '../controllers/announcements/announcementCreate.controller'
+import announcementDeleteController from '../controllers/announcements/announcementDelete.controller'
+import announcementListController from '../controllers/announcements/announcementList.controller'
+import announcementRetrieveController from '../controllers/announcements/announcementRetrieve.controller'
+import announcementUpdateController from '../controllers/announcements/announcementUpdate.controller'
+import { ensureAuthMiddleware } from '../middlewares/ensureAuth.middleware'
+import { ensureToAlterationAnnouncementMiddleware } from '../middlewares/ensureToAlterationAnnouncement.middleware'
 
-export const announcementRoutes = Router();
+export const announcementRoutes = Router()
 
-announcementRoutes.post("", announcementCreateController);
+announcementRoutes.post('', ensureAuthMiddleware, announcementCreateController)
 
-announcementRoutes.get("", announcementListController);
+announcementRoutes.get('', announcementListController)
 
-announcementRoutes.get("/:id", announcementRetrieveListController);
+announcementRoutes.get(
+  '/:id',
+  ensureAuthMiddleware,
+  announcementRetrieveController
+)
 
-announcementRoutes.delete("/:id", announcementDeleteController);
+announcementRoutes.delete(
+  '/:id',
+  ensureAuthMiddleware,
+  ensureToAlterationAnnouncementMiddleware,
+  announcementDeleteController
+)
 
-announcementRoutes.patch("/:id", announcementUpdateController);
+announcementRoutes.patch(
+  '/:id',
+  ensureAuthMiddleware,
+  ensureToAlterationAnnouncementMiddleware,
+  announcementUpdateController
+)

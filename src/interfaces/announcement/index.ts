@@ -1,3 +1,4 @@
+import { Image } from "../../entities/image.entity";
 import { IUser } from "../users";
 
 export interface IAnnouncement {
@@ -10,7 +11,7 @@ export interface IAnnouncement {
   description: string;
   vehicle_type: string;
   cover_image: string;
-  images_list: string[];
+  images_list: Image[];
   createdAt: string;
   advertiser: IUser;
 }

@@ -1,11 +1,19 @@
-import { Request, Response } from "express";
-import announcementDeleteService from "../../services/announcements/announcementDelete.services";
-const userDeleteController = async (req: Request, res: Response) => {
-  const { id } = req.params;
+import { Request, Response } from 'express'
+import { AppError, handleError } from '../../errors/appError'
+import announcementDeleteService from '../../services/announcements/announcementDelete.services'
 
-  await announcementDeleteService(id);
+const announcementDeleteController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
 
-  return res.status(204).send();
-};
+    await announcementDeleteService(id)
 
-export default userDeleteController;
+    return res.status(204).send()
+  } catch (error) {
+    if (error instanceof AppError) {
+      handleError(error, res)
+    }
+  }
+}
+
+export default announcementDeleteController

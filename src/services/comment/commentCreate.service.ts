@@ -35,7 +35,23 @@ const commentCreateService = async (
 
   await commentRepository.save(comment);
 
-  return comment;
+  const newComment = await commentRepository.find({
+    relations: {
+      user: true,
+      announcement: true,
+    },
+    loadEagerRelations: false,
+    select: {
+      announcement: {
+        id: true,
+      },
+    },
+    where: {
+      id: comment.id,
+    },
+  });
+
+  return newComment[0];
 };
 
 export default commentCreateService;
