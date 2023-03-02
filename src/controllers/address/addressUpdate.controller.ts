@@ -11,7 +11,7 @@ const addressUpdateController = async (req: Request, res: Response) => {
     number,
     complement,
   });
-  return res.status(204).send(updatedAddress);
+  return res.status(200).send(updatedAddress);
 };
 
 export default addressUpdateController;
