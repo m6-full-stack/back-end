@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import addressUpdateService from "../../services/address/addressUpdate.service";
 const addressUpdateController = async (req: Request, res: Response) => {
-  const { id } = req.user;
+  const { id } = req.params;
   const { cep, state, city, street, number, complement } = req.body;
   const updatedAddress = await addressUpdateService(id, {
     cep,
