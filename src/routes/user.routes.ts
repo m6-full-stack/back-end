@@ -4,6 +4,7 @@ import addressUpdateController from '../controllers/address/addressUpdate.contro
 import userCreateController from '../controllers/users/userCreate.controller'
 import userDeleteController from '../controllers/users/userDelete.controller'
 import userListController from '../controllers/users/userList.controller'
+import userRetrieveController from '../controllers/users/userRetrive.controller'
 import userUpdateController from '../controllers/users/userUpdate.controller'
 import passwordSendTokenController from '../controllers/password/passwordSendToken.controller'
 import passwordRecoverController from '../controllers/password/passwordRecover.controller'
@@ -13,6 +14,8 @@ export const userRoutes = Router()
 userRoutes.post('', userCreateController)
 
 userRoutes.get('', userListController)
+
+userRoutes.get('/:id', userRetrieveController)
 
 userRoutes.delete('/:id', userDeleteController)
 
