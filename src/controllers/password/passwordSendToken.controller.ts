@@ -4,8 +4,8 @@ import passwordSendTokenService from '../../services/password/passwordSendToken.
 const passwordSendTokenController = async (req: Request, res: Response) => {
   const { email } = req.body
 
-  await passwordSendTokenService(email)
+  const token = await passwordSendTokenService(email)
 
-  res.status(204).send()
+  res.status(201).send({ token: token })
 }
 export default passwordSendTokenController

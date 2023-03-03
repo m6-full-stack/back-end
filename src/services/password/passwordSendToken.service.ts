@@ -19,5 +19,7 @@ const passwordSendTokenService = async (email: string) => {
     to: email,
   }
   await sendEmail(emailData)
+
+  return user.tokenResetPassword
 }
 export default passwordSendTokenService
