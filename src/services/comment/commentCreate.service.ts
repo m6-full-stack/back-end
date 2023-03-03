@@ -38,14 +38,8 @@ const commentCreateService = async (
   const newComment = await commentRepository.find({
     relations: {
       user: true,
-      announcement: true,
     },
     loadEagerRelations: false,
-    select: {
-      announcement: {
-        id: true,
-      },
-    },
     where: {
       id: comment.id,
     },
