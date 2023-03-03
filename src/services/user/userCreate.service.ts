@@ -40,7 +40,9 @@ const userCreateService = async ({
       el.street === address.street &&
       el.number === address.number
   )
+
   const hashedPassword = await hash(password, 10)
+  const tokenPassword = await hash(email, 6)
   const user = {
     name,
     password: hashedPassword,
@@ -51,6 +53,7 @@ const userCreateService = async ({
     is_seller,
     address,
     cpf,
+    tokenResetPassword: tokenPassword,
   }
 
   if (!addressAlreadyExists) {

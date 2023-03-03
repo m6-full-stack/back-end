@@ -9,6 +9,7 @@ import { announcementRoutes } from './routes/announcement.routes'
 import commentRoutes from './routes/comment.routes'
 // import profileRoutes from './routes/profile.routes'
 import imageRoutes from './routes/image.routes'
+import { emailRoutes } from './routes/email.routes'
 
 const app = express()
 app.use(cors())
@@ -17,6 +18,7 @@ app.use('/users', userRoutes)
 app.use('/login', sessionRoutes)
 // app.use('/profile', profileRoutes)
 app.use('/images', imageRoutes)
+app.use('/email', emailRoutes)
 app.use('/announcement', announcementRoutes)
 app.use('/comment', commentRoutes)
 

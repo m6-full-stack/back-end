@@ -42,6 +42,10 @@ export class User {
   @Column({ nullable: true, default: false })
   is_seller: boolean
 
+  @Exclude()
+  @Column({ nullable: true })
+  tokenResetPassword: string
+
   @Column('date')
   created_at: string
 
