@@ -19,12 +19,12 @@ const updateAddressService = async (
   }
 
   await addressRepository.update(user.address.id, {
-    city: city ? city : user.address.city,
-    complement: complement ? complement : user.address.complement,
-    number: number ? number : user.address.number,
-    state: state ? state : user.address.state,
-    street: street ? street : user.address.street,
-    cep: cep ? cep : user.address.cep,
+    city,
+    complement,
+    number,
+    state,
+    street,
+    cep,
   })
 
   const updatedUserAddress = await userRepository.findOneBy({ id })

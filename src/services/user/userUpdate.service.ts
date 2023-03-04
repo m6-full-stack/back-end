@@ -19,9 +19,6 @@ const updateUserService = async (
   }: IUserUpdateRequest,
   userId: string
 ) => {
-  if (userId.length !== 36) {
-    throw new AppError(404, "Invalid id format");
-  }
 
   if (address) {
     throw new AppError(400, "You cannot update address property.");
@@ -46,15 +43,15 @@ const updateUserService = async (
   console.log(is_seller);
 
   await userRepository.update(user!.id, {
-    address: user.address,
-    birthdate: birthdate ? birthdate : user.birthdate,
-    phone: phone ? phone : user.phone,
-    cpf: cpf ? cpf : user.cpf,
-    description: description ? description : user.description,
-    email: email ? email : user.email,
-    name: name ? name : user.name,
-    is_seller: is_seller ? is_seller : user.is_seller,
-    password: password ? newPassword : user.password,
+    address,
+    birthdate,
+    phone,
+    cpf,
+    description,
+    email,
+    name,
+    is_seller,
+    password,
   });
 
   const updatedUser = await userRepository.findOneBy({ id: userId });
