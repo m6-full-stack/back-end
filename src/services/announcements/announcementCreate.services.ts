@@ -1,10 +1,9 @@
-import AppDataSource from '../../data-source'
-import { Announcement } from '../../entities/announcement.entity'
-import { IAnnouncementRequest } from '../../interfaces/announcement'
-import { User } from '../../entities/user.entity'
-import { Image } from '../../entities/image.entity'
-import imagesCreateService from '../images/imagesCreate.services'
-import { AppError } from '../../errors/appError'
+import AppDataSource from "../../data-source"
+import { Announcement } from "../../entities/announcement.entity"
+import { User } from "../../entities/user.entity"
+import { AppError } from "../../errors/appError"
+import { IAnnouncementRequest } from "../../interfaces/announcement"
+import imagesCreateService from "../images/imagesCreate.services"
 
 const announcementCreateService = async (
   {
@@ -24,12 +23,10 @@ const announcementCreateService = async (
 
   const userRepository = AppDataSource.getRepository(User)
 
-  const imagesRepository = AppDataSource.getRepository(Image)
-
   const user = await userRepository.findOneBy({ id })
 
   if (!user.is_seller === true) {
-    throw new AppError(404, 'This user cannot advertise!')
+    throw new AppError(403, 'This user cannot advertise!')
   }
 
   const newAnnouncement = announcementRepository.create({
@@ -60,6 +57,6 @@ const announcementCreateService = async (
 
     return announcementCreated
   }
-  throw new AppError(406, 'Requested images not found')
+  throw new AppError(404, 'Requested images not found')
 }
 export default announcementCreateService
