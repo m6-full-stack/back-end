@@ -43,15 +43,15 @@ const updateUserService = async (
   console.log(is_seller);
 
   await userRepository.update(user!.id, {
-    address,
-    birthdate,
-    phone,
-    cpf,
-    description,
-    email,
-    name,
-    is_seller,
-    password,
+    address: user.address,
+    birthdate: birthdate ? birthdate : user.birthdate,
+    phone: phone ? phone : user.birthdate,
+    cpf: cpf ? cpf : user.cpf,
+    description: description ? description : user.description,
+    email: email ? email : user.email,
+    name: name ? name : user.name,
+    is_seller: is_seller ? is_seller : user.is_seller,
+    password: password ? password : user.password,
   });
 
   const updatedUser = await userRepository.findOneBy({ id: userId });
@@ -60,3 +60,5 @@ const updateUserService = async (
 };
 
 export default updateUserService;
+
+
