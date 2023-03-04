@@ -1,17 +1,10 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-  OneToOne,
-  OneToMany,
-} from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 import { User } from './user.entity'
 
-@Entity()
+@Entity("address")
 export class Address {
   @PrimaryGeneratedColumn('uuid')
-  readonly id: string
+  id: string
 
   @Column()
   cep: string
@@ -30,7 +23,4 @@ export class Address {
 
   @Column({ nullable: true })
   complement: string
-
-  @OneToMany(() => User, (user) => user.address)
-  user: User
 }

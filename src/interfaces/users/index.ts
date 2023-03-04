@@ -1,5 +1,14 @@
 import { IAddress } from '../address'
 
+export interface IAddressRequest {
+  cep: string 
+  state: string 
+  city: string 
+  street: string 
+  number: string 
+  complement: string
+}
+
 export interface IUser {
   name: string
   password: string
@@ -9,7 +18,7 @@ export interface IUser {
   is_seller: boolean
   email: string
   phone: string
-  address: IAddress
+  address: IAddressRequest
 }
 
 export interface IUserUpdate {
@@ -21,4 +30,17 @@ export interface IUserUpdate {
   is_seller?: boolean
   email?: string
   phone?: string
+  address?: IAddressRequest
+}
+
+export interface IUserUpdateRequest {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  phone?: string;
+  birthdate?: string;
+  description?: string;
+  is_seller?: boolean;
+  password?: string;
+  address?: IAddressRequest;
 }

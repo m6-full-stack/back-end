@@ -1,5 +1,5 @@
 import { IUser } from '../../interfaces/users/index'
-import { Address } from '../../entities/adress.entity'
+import { Address } from '../../entities/address.entity'
 import { User } from '../../entities/user.entity'
 import AppDataSource from '../../data-source'
 import { hash } from 'bcryptjs'
