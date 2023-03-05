@@ -51,7 +51,7 @@ export class Announcement {
   })
   images_list: Image[]
 
-  @ManyToOne(() => User, (user) => user.announcements)
+  @ManyToOne(() => User, (user) => user.announcements, { onDelete: 'CASCADE' })
   @JoinColumn({})
   advertiser: User
 
