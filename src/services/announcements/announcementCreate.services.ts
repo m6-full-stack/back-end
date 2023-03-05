@@ -44,7 +44,7 @@ const announcementCreateService = async (
   await announcementRepository.save(newAnnouncement)
 
   if (images_list) {
-    const listImages = await imagesCreateService(images_list, newAnnouncement)
+    const listImages = await imagesCreateService(images_list, newAnnouncement.id)
 
     if (!listImages) {
       throw new AppError(409, 'Images not created')
