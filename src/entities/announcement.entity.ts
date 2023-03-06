@@ -42,6 +42,9 @@ export class Announcement {
   @Column({ default: false })
   is_sold: boolean
 
+  @Column({ default: true })
+  is_active: boolean
+
   @Column('date')
   createdAt: string
 
@@ -51,7 +54,7 @@ export class Announcement {
   })
   images_list: Image[]
 
-  @ManyToOne(() => User, (user) => user.announcements)
+  @ManyToOne(() => User, (user) => user.announcements, { onDelete: 'CASCADE' })
   @JoinColumn({})
   advertiser: User
 
