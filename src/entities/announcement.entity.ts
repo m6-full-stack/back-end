@@ -42,6 +42,9 @@ export class Announcement {
   @Column({ default: false })
   is_sold: boolean
 
+  @Column({ default: true })
+  is_active: boolean
+
   @Column('date')
   createdAt: string
 
