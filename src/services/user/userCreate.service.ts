@@ -34,6 +34,14 @@ const userCreateService = async ({
     throw new AppError(400, 'CPF already exists!')
   }
 
+  const dateArray = birthdate.split("/");
+
+  const newBirthDate = `${parseInt(dateArray[2])}-${parseInt(dateArray[1])}-${parseInt(dateArray[0])}`
+
+  if (!dateArray && !newBirthDate) {
+    throw new AppError(400, 'Your birthday is not correct')
+  }
+
   const addressAlreadyExists = addresses.find(
     (el) =>
       el.city === address.city &&
@@ -49,7 +57,7 @@ const userCreateService = async ({
     email,
     phone,
     description,
-    birthdate,
+    birthdate: newBirthDate,
     is_seller,
     address,
     cpf,

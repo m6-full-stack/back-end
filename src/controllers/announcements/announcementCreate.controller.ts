@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { AppError, handleError } from '../../errors/appError'
 import announcementCreateService from '../../services/announcements/announcementCreate.services'
 
 const announcementCreateController = async (req: Request, res: Response) => {

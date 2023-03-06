@@ -1,4 +1,3 @@
-import { ensureAuthMiddleware } from './../middlewares/ensureAuth.middleware'
 import { Router } from 'express'
 import addressUpdateController from '../controllers/address/addressUpdate.controller'
 import userCreateController from '../controllers/users/userCreate.controller'
@@ -11,7 +10,7 @@ import passwordRecoverController from '../controllers/password/passwordRecover.c
 import { updateUserAddressController } from '../controllers/users/updateUserAddress.controller'
 import { updateUserController } from '../controllers/users/userUpdate.controller'
 
-export const userRoutes = Router()
+const userRoutes = Router()
 
 userRoutes.post('', userCreateController)
 
@@ -26,4 +25,7 @@ userRoutes.patch('/:id', updateUserController)
 userRoutes.patch('/address/:id', updateUserAddressController)
 
 userRoutes.post('/sendTokenPassword', passwordSendTokenController)
+
 userRoutes.post('/recoverPassword', passwordRecoverController)
+
+export default userRoutes;
