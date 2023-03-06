@@ -1,9 +1,8 @@
 import { Request, Response } from 'express'
 import { instanceToPlain } from 'class-transformer'
-import { AppError, handleError } from '../../errors/appError'
 import userUpdateService from '../../services/user/userUpdate.service'
 const userUpdateController = async (req: Request, res: Response) => {
-    const { id } = req.user;
+    const { id } = req.params
     const {
       name,
       password,

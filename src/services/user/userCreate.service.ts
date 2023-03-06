@@ -34,23 +34,34 @@ const userCreateService = async ({
     throw new AppError(400, 'CPF already exists!')
   }
 
+  const dateArray = birthdate.split("/");
+
+  const newBirthDate = `${parseInt(dateArray[2])}-${parseInt(dateArray[1])}-${parseInt(dateArray[0])}`
+
+  if (!dateArray && !newBirthDate) {
+    throw new AppError(400, 'Your birthday is not correct')
+  }
+
   const addressAlreadyExists = addresses.find(
     (el) =>
       el.city === address.city &&
       el.street === address.street &&
       el.number === address.number
   )
+
   const hashedPassword = await hash(password, 10)
+  const tokenPassword = await hash(email, 6)
   const user = {
     name,
     password: hashedPassword,
     email,
     phone,
     description,
-    birthdate,
+    birthdate: newBirthDate,
     is_seller,
     address,
     cpf,
+    tokenResetPassword: tokenPassword,
   }
 
   if (!addressAlreadyExists) {

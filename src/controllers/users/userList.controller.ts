@@ -1,10 +1,7 @@
 import { Request, Response } from 'express'
-import { AppError, handleError } from '../../errors/appError'
-
 import { instanceToPlain } from 'class-transformer'
 
 import userListService from '../../services/user/userList.service'
-
 const userListController = async (req: Request, res: Response) => {
     const users = await userListService()
 

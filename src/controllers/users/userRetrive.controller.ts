@@ -5,12 +5,11 @@ import { instanceToPlain } from 'class-transformer'
 import userRetrieveService from '../../services/user/userRetrieve.service'
 
 const userRetrieveController = async (req: Request, res: Response) => {
+  const { id } = req.params
 
-    const { id } = req.params
+  const users = await userRetrieveService(id)
 
-    const users = await userRetrieveService(id)
-
-    return res.json(instanceToPlain(users))
+  return res.json(instanceToPlain(users))
 }
 
 export default userRetrieveController

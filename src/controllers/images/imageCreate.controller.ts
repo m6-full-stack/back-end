@@ -1,18 +1,16 @@
 import { Request, Response } from "express";
-import AppDataSource from "../../data-source";
-import { Announcement } from "../../entities/announcement.entity";
 import imagesCreateService from "../../services/images/imagesCreate.services";
 
 const imageCreateController = async (req: Request, res: Response) => {
-  const images_list = req.body;
+  const { image_url } = req.body;
+
+  const images_list = [...image_url]
 
   const { id } = req.params;
 
-  const announcementRepository = AppDataSource.getRepository(Announcement);
+  console.log(images_list, id)
 
-  const announcement = await announcementRepository.findOneBy({ id });
-
-  const newimage = await imagesCreateService(images_list, announcement);
+  const newimage = await imagesCreateService(images_list, id);
   return res.status(201).send(newimage);
 };
 

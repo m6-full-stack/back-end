@@ -1,11 +1,9 @@
-import { Router } from "express";
-import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
-import { retrieveProfileController } from "../controllers/profile/retrieveProfile.controller";
+import { Router } from 'express'
+import { ensureAuthMiddleware } from '../middlewares/ensureAuth.middleware'
+import { retrieveProfileController } from '../controllers/profile/retrieveProfile.controller'
 
-export const profileRoutes = Router();
+const profileRoutes = Router()
 
-profileRoutes.get(
-  "",
-  ensureAuthMiddleware,
-  retrieveProfileController
-);
+profileRoutes.get('', ensureAuthMiddleware, retrieveProfileController)
+
+export default profileRoutes

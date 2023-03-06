@@ -19,8 +19,14 @@ const AppDataSource = new DataSource(
         database: process.env.POSTGRES_DB,
         logging: true,
         synchronize: false,
-        entities: ['src/entities/*.ts'],
-        migrations: ['src/migrations/*.ts'],
+        entities:
+          process.env.NODE_ENV === 'production'
+            ? ['dist/entities/*.entity.js']
+            : ['src/entities/*.entity.ts'],
+        migrations:
+          process.env.NODE_ENV === 'production'
+            ? ['dist/migrations/*.js']
+            : ['src/migrations/*.ts'],
       }
 )
 

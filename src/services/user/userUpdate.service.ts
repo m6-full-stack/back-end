@@ -25,6 +25,13 @@ const userUpdateService = async (
     throw new AppError(404, 'User not exists!')
   }
 
+  let newBirthDate = "";
+
+  if (birthdate) {
+    const dateArray = birthdate.split("/");
+    newBirthDate = `${parseInt(dateArray[2])}-${parseInt(dateArray[1])}-${parseInt(dateArray[0])}`
+  }
+
   const hashedPassword = await hash(password ? password : '', 10)
 
   await userRepository.update(
@@ -36,7 +43,7 @@ const userUpdateService = async (
       password: password ? hashedPassword : user.password,
       description: description ? description : user.description,
       is_seller: is_seller ? is_seller : user.is_seller,
-      birthdate: birthdate ? birthdate : user.birthdate,
+      birthdate: birthdate ? newBirthDate : user.birthdate,
       cpf: cpf ? cpf : user.cpf,
     }
   )
