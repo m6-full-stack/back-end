@@ -8,14 +8,14 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm'
-import { Address } from './adress.entity'
+import { Address } from './address.entity'
 import { Announcement } from './announcement.entity'
 import { Comment } from './comments.entity'
 
-@Entity()
+@Entity("user")
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  readonly id: string
+  id: string
 
   @Column({ length: 50 })
   name: string
@@ -52,10 +52,7 @@ export class User {
   @Column('date')
   updated_at: string
 
-  @ManyToOne(() => Address, {
-    eager: true,
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(() => Address, { eager: true, onDelete: 'CASCADE' })
   @JoinColumn()
   address: Address
 

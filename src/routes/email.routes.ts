@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import sendEmailController from '../controllers/email/emailSend.controller'
 
-export const emailRoutes = Router()
+const emailRoutes = Router()
 
 emailRoutes.post('', sendEmailController)
+
+export default emailRoutes;

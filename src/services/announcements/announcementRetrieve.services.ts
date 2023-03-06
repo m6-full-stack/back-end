@@ -1,16 +1,21 @@
 import AppDataSource from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
+import { AppError } from "../../errors/appError";
 
 const announcementRetrieveService = async (id: string) => {
   const announcementRepository = AppDataSource.getRepository(Announcement);
 
-  const generalAnnouncements = await announcementRepository.findOne({
+  const announcement = await announcementRepository.findOne({
     loadEagerRelations: false,
     relations: { comments: {user: true}},
     where: { id: id },
   });
 
-  return generalAnnouncements;
+  if (!announcement) {
+    throw new AppError(404, 'This announcement does not exist!')
+  }
+
+  return announcement;
 };
 
 export default announcementRetrieveService;
