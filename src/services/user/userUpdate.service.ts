@@ -1,30 +1,43 @@
-import { IUserUpdate } from './../../interfaces/users/index'
-import AppDataSource from '../../data-source'
-import { User } from '../../entities/user.entity'
-import { AppError } from '../../errors/appError'
-import { hash } from 'bcryptjs'
+import { compareSync, hashSync } from "bcryptjs";
+import AppDataSource from "../../data-source";
+import { User } from "../../entities/user.entity";
+import { AppError } from "../../errors/appError";
+import { IUserUpdateRequest } from "../../interfaces/users";
 
-const userUpdateService = async (
-  id: string,
+
+const updateUserService = async (
   {
-    name,
-    password,
-    email,
-    phone,
-    description,
+    address,
     birthdate,
-    is_seller,
+    phone,
     cpf,
-  }: IUserUpdate
+    description,
+    email,
+    name,
+    is_seller,
+    password,
+  }: IUserUpdateRequest,
+  userId: string
 ) => {
-  const userRepository = AppDataSource.getRepository(User)
-  const user = await userRepository.findOneBy({
-    id,
-  })
-  if (!user) {
-    throw new AppError(404, 'User not exists!')
+
+  if (address) {
+    throw new AppError(400, "You cannot update address property.");
   }
 
+  const userRepository = AppDataSource.getRepository(User);
+
+  const user = await userRepository.findOneBy({ id: userId });
+
+  if (!user) {
+    throw new AppError(404, "User not found.");
+  }
+
+<<<<<<< HEAD
+  let newPassword = "";
+  if (password) {
+    if (compareSync(password, user.password)) {
+      throw new AppError(400, "Enter a different password.");
+=======
   let newBirthDate = "";
 
   if (birthdate) {
@@ -45,19 +58,30 @@ const userUpdateService = async (
       is_seller: is_seller ? is_seller : user.is_seller,
       birthdate: birthdate ? newBirthDate : user.birthdate,
       cpf: cpf ? cpf : user.cpf,
+>>>>>>> 21dddf59be33eae948eca6c7cdb685665aaee0cb
     }
-  )
-
-  const newUser = await userRepository.findOne({
-    where: {
-      id: id,
-    },
-  })
-
-  return {
-    message: 'Updated user',
-    user: newUser,
+    newPassword = hashSync(password, 10);
   }
-}
 
-export default userUpdateService
+  console.log(is_seller);
+
+  await userRepository.update(user!.id, {
+    address: user.address,
+    birthdate: birthdate ? birthdate : user.birthdate,
+    phone: phone ? phone : user.birthdate,
+    cpf: cpf ? cpf : user.cpf,
+    description: description ? description : user.description,
+    email: email ? email : user.email,
+    name: name ? name : user.name,
+    is_seller: is_seller ? is_seller : user.is_seller,
+    password: password ? password : user.password,
+  });
+
+  const updatedUser = await userRepository.findOneBy({ id: userId });
+
+  return updatedUser;
+};
+
+export default updateUserService;
+
+

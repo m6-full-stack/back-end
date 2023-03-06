@@ -1,49 +1,31 @@
-import { IAddress } from "./../../interfaces/address/index";
-import AppDataSource from "../../data-source";
-import { User } from "../../entities/user.entity";
-import { Address } from "../../entities/adress.entity";
-import { AppError } from "../../errors/appError";
+import { Address } from '../../entities/address.entity'
+import AppDataSource from '../../data-source'
+import { Repository } from 'typeorm'
+import { AppError } from '../../errors/appError'
 
-const addressUpdateService = async (
-  id: string,
-  { cep, state, city, street, number, complement }: IAddress
-) => {
-  const userRepository = AppDataSource.getRepository(User);
-  const user = await userRepository.findOneBy({
-    id,
-  });
-  if (!user) {
-    throw new AppError(404, "User not exists!");
-  }
-  const addressRepository = AppDataSource.getRepository(Address);
-  const address = await addressRepository.findOneBy(user.address);
+interface AddressUpdateInput {
+  id: string
+  cep?: string
+  state?: string
+  city?: string
+  street?: string
+  number?: string
+  complement?: string
+}
+
+const updateAddressService = async (input: AddressUpdateInput) => {
+  const addressRepository: Repository<Address> = AppDataSource.getRepository(Address)
+  const { id, ...updateFields } = input
+  const address = await addressRepository.findOne({ where: { id } });
 
   if (!address) {
-    throw new AppError(404, "Address not found!");
+    throw new AppError(404, 'Endereço não encontrado')
   }
 
-  await addressRepository.update(
-    { id: address.id },
-    {
-      cep: cep ? cep : user.address.cep,
-      state: state ? state : user.address.state,
-      city: city ? city : user.address.city,
-      street: street ? street : user.address.street,
-      number: number ? number : user.address.number,
-      complement: complement ? complement : user.address.complement,
-    }
-  );
+  const updatedAddress = addressRepository.merge(address, updateFields)
+  await addressRepository.save(updatedAddress)
 
-  const newAddress = await addressRepository.findOne({
-    where: {
-      id: address.id,
-    },
-  });
+  return updatedAddress
+}
 
-  return {
-    message: "Updated address",
-    user: newAddress,
-  };
-};
-
-export default addressUpdateService;
+export default updateAddressService
