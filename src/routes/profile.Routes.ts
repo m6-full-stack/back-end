@@ -5,4 +5,5 @@ import { retrieveProfileController } from '../controllers/profile/retrieveProfil
 const profileRoutes = Router()
 
 profileRoutes.get('', ensureAuthMiddleware, retrieveProfileController)
+
 export default profileRoutes

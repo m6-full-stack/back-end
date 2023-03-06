@@ -7,7 +7,7 @@ import announcementUpdateController from '../controllers/announcements/announcem
 import { ensureAuthMiddleware } from '../middlewares/ensureAuth.middleware'
 import { ensureToAlterationAnnouncementMiddleware } from '../middlewares/ensureToAlterationAnnouncement.middleware'
 
-export const announcementRoutes = Router()
+const announcementRoutes = Router()
 
 announcementRoutes.post('', ensureAuthMiddleware, announcementCreateController)
 
@@ -32,3 +32,5 @@ announcementRoutes.patch(
   ensureToAlterationAnnouncementMiddleware,
   announcementUpdateController
 )
+
+export default announcementRoutes
