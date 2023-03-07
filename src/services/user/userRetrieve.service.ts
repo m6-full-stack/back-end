@@ -6,7 +6,8 @@ const userRetrieveService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User)
 
   const user = await userRepository.findOne({
-    relations: { announcements: true },
+    loadEagerRelations: false,
+    relations: { announcements: {advertiser: true} },
     where: { id: id },
   })
 
