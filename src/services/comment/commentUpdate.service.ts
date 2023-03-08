@@ -30,8 +30,14 @@ const commentUpdateService = async (
     content: commentData,
   });
 
-  const comment = await commentRepository.findOneBy({
-    id: idComment,
+  const comment = await commentRepository.findOne({
+    relations: {
+      user: true,
+    },
+    loadEagerRelations: false,
+    where: {
+      id: idComment,
+    },
   });
 
   return comment!;
