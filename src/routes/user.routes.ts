@@ -24,6 +24,6 @@ userRoutes.patch('/address/:id', updateUserAddressController)
 
 userRoutes.post('/sendTokenPassword', passwordSendTokenController)
 
-userRoutes.post('/recoverPassword', passwordRecoverController)
+userRoutes.post('/recoverPassword/:id', passwordRecoverController)
 
 export default userRoutes
