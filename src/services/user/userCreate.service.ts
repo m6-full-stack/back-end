@@ -45,7 +45,7 @@ const userCreateService = async ({
   }
 
   const hashedPassword = await hash(password, 10)
-  const tokenPassword = await hash(email, 6)
+  const tokenPassword = (Math.random() + 1).toString(36).substring(2)
   const user = {
     name,
     password: hashedPassword,
